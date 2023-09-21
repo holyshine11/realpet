@@ -1,0 +1,21 @@
+<!-- templates/doginfo_detail.html -->
+{% block content %}
+
+{% if doginfo.dog_image %}
+    <img src="{{ doginfo.dog_image.url }}" alt="{{ doginfo.dog_name }}" width="200">
+{% else %}
+    <p>이미지 없음</p>
+{% endif %}
+
+<h1>정보</h1>
+<p>보호자 닉네임 {{ doginfo.guardian_nickname }}</p>
+<p>반려동물 이름  {{ doginfo.dog_name }}</p>
+<p>휴대폰 번호  {{ doginfo.phone_number }}</p>
+<p>출생년도  {{ doginfo.birth_year }}</p>
+<p>성별  {{ doginfo.get_gender_display }}</p>
+<p>중성화 여부  {{ doginfo.is_neutered }}</p>
+
+
+
+<a href="{% url 'doginfo_list' %}">목록</a>
+{% endblock %}

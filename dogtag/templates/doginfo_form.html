@@ -1,0 +1,105 @@
+{% load widget_tweaks %}
+{% block content %}
+<!-- 부트스트랩 -->
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<style>
+    .container-custom {
+      max-width: 980px;
+      margin: auto;
+    }
+    .btn-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+    .btn-container .btn + .btn {
+      margin-left: 10px; /* 버튼 간의 간격 */
+    }
+    .form-row {
+      display: flex;
+      justify-content: flex-start; /* 간격 조절 */
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .form-label {
+      flex: 1;
+      margin-right: -300px; /* 항목과 인풋 내역 */
+    }
+    .form-input {
+      flex: 2;
+    }
+    .form-input .btn-info {
+      margin-bottom: 10px; /* 미리보기 버튼과 파일 선택 필드의 간격 */
+    }
+  </style>
+
+<div class="container-custom mt-5">
+  <h1 class="mb-4">반려동물 정보 등록/수정</h1>
+  <form
+    method="post"
+    enctype="multipart/form-data"
+    onsubmit="return checkPhoneNumber();"
+  >
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-row form-group">
+      <div class="form-label">
+        {% if field.label %} {{ field.label|slice:":10" }} {% endif %}
+      </div>
+      <div class="form-input">
+        {% if field.name == "gender" %}
+        {{ field }}
+        {% elif field.name == "is_neutered" %}
+        {{ field }}
+        {% else %}
+        {{ field|add_class:"form-control" }}
+        {% endif %}
+        {% if field.name == "dog_image" and not is_edit_mode %}
+        <br />
+        <button type="button" class="btn btn-info" id="preview-button">
+          미리보기
+        </button>
+        <img id="preview-image" style="display: none" width="200" />
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}  <!-- 이 부분이 추가되어야 합니다 -->
+    <div class="btn-container">
+      <a href="{% url 'dogtag:doginfo_list' %}" class="btn btn-warning">목록</a>
+      <button type="submit" class="btn btn-primary">저장</button>
+    </div>
+  </form>
+</div>
+<script>
+  document
+    .getElementById("preview-button")
+    .addEventListener("click", function () {
+      var input = document.getElementById("id_dog_image");
+      var file = input.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        var image = document.getElementById("preview-image");
+        image.src = e.target.result;
+        image.style.display = "block";
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
+
+  function checkPhoneNumber() {
+    const phoneNumber = document.getElementById("id_phone_number").value;
+    const regex = /^\d{2,3}-\d{3,4}-\d{4}$/;
+    if (!regex.test(phoneNumber)) {
+      alert("휴대폰 번호 형식은 '010-1234-5678'과 같은 형태로 입력하세요.");
+      return false;
+    }
+    return true;
+  }
+</script>
+{% endblock %}

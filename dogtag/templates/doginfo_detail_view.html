@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load custom_filters %}
+    <meta charset="UTF-8">
+    <title>강아지 정보 상세</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Pretendard Font -->
+    <link href="https://cdn.jsdelivr.net/npm/@orioncactus/pretendard@1.1.5/dist/web/stylesheet.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+        .info-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .info-section strong {
+            background-color: #f1f1f1;
+            padding: 10px;
+            display: block;
+        }
+        .img-container {
+            text-align: center;
+            max-width: 100%;
+            margin: auto;
+        }
+        h6.text-center {
+            font-size: 2em;
+            font-weight: regular;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="text-center mb-2 mt-2">
+            <strong>[ 반려 동물 정보 ]</strong>
+        </div>
+        <div class="img-container mb-5">
+            {% if object.dog_image %}
+                <img src="{{ object.dog_image.url }}" alt="{{ object.dog_name }}" class="img-fluid" style="border-radius: 10px;">
+            {% else %}
+                <p>사진이 없습니다.</p>
+            {% endif %}
+        </div>
+        <!-- 정보 출력 -->
+        <div class="info-section">
+            <strong>보호자 닉네임</strong>
+            <div>{{ object.guardian_nickname }}</div>
+        </div>
+        <div class="info-section">
+            <strong>반려동물 정보</strong>
+            <div>{{ object.dog_name }}</div>
+        </div>
+        <div class="info-section">
+            <strong>휴대폰 번호</strong>
+            <div>{{ object.phone_number|mask_last_four }}</div>
+        </div>
+        <div class="info-section">
+            <strong>출생년도</strong>
+            <div>{{ object.birth_year }}년</div>
+        </div>
+        <div class="info-section">
+            <strong>성별</strong>
+            <div>{{ object.get_gender_display }}</div>
+        </div>
+        <div class="info-section">
+            <strong>중성화 여부</strong>
+            <div>{{ object.is_neutered|yesno:"예,아니오" }}</div>
+        </div>
+        <!-- 전화걸기 버튼 -->
+        <div class="text-center mb-5 mt-2">
+            <a href="tel:{{ object.phone_number }}" class="btn btn-primary w-100">전화걸기</a>
+        </div>
+    </div>
+</body>
+</html>
