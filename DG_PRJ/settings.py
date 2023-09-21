@@ -13,23 +13,16 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = os.environ.get("SECRET_KEY", "default_secret_key")
-# "qwer_qwer_qwer"
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 장고 어드민 언어
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 LANGUAGE_CODE = 'ko'
 
-
+SECRET_KEY = 'sg-@0q^c9=dch!55z5c434n0!%=aq#v3s+@e!m_f+!1^#(!w*i'
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://port-0-realpet-ac2nlkrnwd6e.sel4.cloudtype.app']
 
 
 # Application definition
