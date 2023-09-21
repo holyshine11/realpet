@@ -19,7 +19,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 LANGUAGE_CODE = 'ko'
 
-SECRET_KEY = 'sg-@0q^c9=dch!55z5c434n0!%=aq#v3s+@e!m_f+!1^#(!w*i'
+SECRET_KEY = '5xeuu%71e@wu=#f@^xs6fp0d$adc@c7dvk@8-gfb%0r@ynpe*-'
+
+#'sg-@0q^c9=dch!55z5c434n0!%=aq#v3s+@e!m_f+!1^#(!w*i'
+
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://port-0-realpet-ac2nlkrnwd6e.sel4.cloudtype.app']
